@@ -18,7 +18,6 @@ export default function UpdateProperty() {
         try {
             const response = await propertyServices.getPropertybyid(id);
             if (response) {
-                console.log(response.myproperty[0])
                 setMyProperty(response.myproperty[0]);
             }
         }

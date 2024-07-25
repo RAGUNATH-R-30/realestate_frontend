@@ -188,11 +188,14 @@ function Dashboard() {
 
                 <div className='flex justify-center items-center gap-3'>
                     {
-                        properties.map((item, index) => {
-                            // console.log(item)
-                            return <PropertyCard key={index} id={item._id} propertyType={item.property_type} location={item.location} price={item.price} description={item.description} />
+                        properties?.length === 0
+                            ? <p className='flex justify-center items-center font-bold'>No properties found</p> :
 
-                        })
+                            properties.map((item, index) => {
+                                // console.log(item)
+                                return <PropertyCard key={index} id={item._id} propertyType={item.property_type} location={item.location} price={item.price} description={item.description} />
+
+                            })
                     }
                 </div>
 
