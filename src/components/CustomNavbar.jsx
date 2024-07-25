@@ -7,7 +7,7 @@ function CustomNavbar() {
     const navigate = useNavigate()
     return (
         <Navbar fluid rounded>
-            <Navbar.Brand href="https://flowbite-react.com">
+            <Navbar.Brand onClick={() => navigate('/dashboard')}>
                 <span className="self-center whitespace-nowrap text-xl font-semibold dark:text-white">RE_Agent</span>
             </Navbar.Brand>
             <Navbar.Toggle />
@@ -22,7 +22,7 @@ function CustomNavbar() {
                 <Dropdown inline label={<Avatar rounded bordered />} className='p-3'>
 
 
-                    <Dropdown.Item onClick={() => navigate('/user/booking-logs')}>
+                    <Dropdown.Item onClick={() => navigate('/myproperty')}>
                         <HiBuildingStorefront className='w-4 h-4 mr-2' />
                         My Properties
                     </Dropdown.Item>

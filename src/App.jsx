@@ -10,6 +10,7 @@ import Dashboard from './components/Dashboard'
 import { ToastManager } from './components/ToastManager'
 import NewProperty from './components/NewProperty'
 import Myproperty from './components/Myproperty'
+import UpdateProperty from './components/UpdateProperty'
 
 function App() {
 
@@ -27,13 +28,17 @@ function App() {
       element:<Dashboard/>
     },
     {
-      path:'newproperty',
+      path:'/newproperty',
       element:<NewProperty/>
 
     },
     {
-      path:'myproperty',
-      element:<Myproperty/>
+      path:'/myproperty',
+      element:<Myproperty />
+    },
+    {
+      path:'/myproperty/:id',
+      element:<UpdateProperty />
     }
   ])
   return (
