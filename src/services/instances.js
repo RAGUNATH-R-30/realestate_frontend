@@ -1,6 +1,6 @@
 import axios from "axios"
 
-const baseURL = 'http://realestate-api-unse.onrender.com/api'
+const baseURL = 'https://realestate-api-unse.onrender.com/api'
 
 export const instance = axios.create({
     baseURL:baseURL,
