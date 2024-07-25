@@ -46,7 +46,7 @@ const propertyServices = {
     },
     deleteProperty: async (id) => {
         try {
-            const response = await instance.delete('/property/deleteproperty', { property_id: id });
+            const response = await instance.delete(`/property/deleteproperty/${id}`);
             if (response) {
                 return response.data;
             }

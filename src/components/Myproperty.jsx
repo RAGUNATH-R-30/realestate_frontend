@@ -39,6 +39,7 @@ function Myproperty() {
                 description={prop.description}
                 price={prop.price}
                 type='agentCard'
+                getMyProperty={getMyProperty}
               />
             ))
         }
