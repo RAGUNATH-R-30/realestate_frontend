@@ -8,25 +8,7 @@ export default function PropertyForm({
     property_type,
     locations
 }) {
-  const [myProperty, setMyProperty] = useState([]);
-
-    const { id } = useParams();
-    console.log(id)
-
-    const getPropertyData= async(id)=>{
-        try {
-            const response = await propertyServices.getPropertybyid(id);
-            if (response) {
-              setMyProperty(response.myproperty);
-            }
-          }
-          catch (err) {
-            alert(err.message);
-          }
-    }
-useEffect(()=>{
-getPropertyData(id)
-},[])
+  
     return (
         <>
             <div>

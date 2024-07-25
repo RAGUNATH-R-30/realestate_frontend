@@ -4,12 +4,30 @@ import { HiMapPin } from 'react-icons/hi2';
 
 import { FiDelete, FiEdit, FiTrash } from "react-icons/fi";
 import { useNavigate } from 'react-router-dom';
+import { showToast } from '../ToastManager';
+import userServices from '../../services/userServices';
+import propertyServices from '../../services/propertyServices';
 
 
 
 
-const PropertyCard = ({ id, propertyType, location, description, price, type }) => {
-    const navigate = useNavigate()
+const PropertyCard = ({ id, propertyType, location, description, price, type, getMyProperty }) => {
+    const navigate = useNavigate();
+
+
+
+    const handleDelete = async (id) => {
+        try {
+            const resposne = await propertyServices.deleteProperty(id);
+            showToast(resposne.message, 'success')
+            navigate('/myproperty');
+            getMyProperty();
+        }
+        catch (error) {
+            showToast(error.message, 'error');
+        }
+    }
+
     return (
         <Card className="w-[400px] bg-white shadow-lg rounded-lg ">
             <img
@@ -78,6 +96,7 @@ const PropertyCard = ({ id, propertyType, location, description, price, type }) 
                             <button
                                 type="button"
                                 class="w-full flex justify-center items-center gap-2 text-white bg-red-700 hover:bg-red-800 focus:outline-none focus:ring-4 focus:ring-red-300 font-medium rounded-full text-sm px-5 py-2.5 text-center me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"
+                                onClick={() => handleDelete(id)}
                             >
                                 <FiTrash className='w-4 h-4' />
                                 Delete
