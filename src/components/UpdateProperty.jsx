@@ -1,14 +1,35 @@
 import { Button, Card } from 'flowbite-react';
 import { useFormik } from 'formik';
-import React from 'react'
+import React, { useEffect, useState } from 'react'
 import { useNavigate, useParams } from 'react-router-dom'
 import { showToast } from './ToastManager';
 import PropertyForm from './reusable/PropertyForm';
 import CustomNavbar from './CustomNavbar';
+import propertyServices from '../services/propertyServices';
 
 export default function UpdateProperty() {
     const { id } = useParams();
     const navigate = useNavigate()
+
+    const [myProperty, setMyProperty] = useState([]);
+
+
+    const getPropertyData = async (id) => {
+        try {
+            const response = await propertyServices.getPropertybyid(id);
+            if (response) {
+                console.log(response.myproperty[0])
+                setMyProperty(response.myproperty[0]);
+            }
+        }
+        catch (err) {
+            alert(err.message);
+        }
+    }
+    useEffect(() => {
+        getPropertyData(id)
+    }, [])
+
     const locations = [
         {
             "districtName": "Ariyalur"
@@ -115,6 +136,7 @@ export default function UpdateProperty() {
         'House', 'Apartment', 'Land'
     ]
 
+
     const formik = useFormik({
         initialValues: {
             location: '',
@@ -138,9 +160,10 @@ export default function UpdateProperty() {
             // }
             // return error
         },
+        enableReinitialize: true,
         onSubmit: (values) => {
-            propertyServices.createProperty(values).then((response) => {
-                showToast(response.data.message)
+            propertyServices.updateProperty(id, values).then((response) => {
+                showToast(response.message)
                 navigate('/myproperty')
             }).catch((error) => {
                 showToast(error.response.data.message)
@@ -148,6 +171,17 @@ export default function UpdateProperty() {
             })
         }
     })
+
+    useEffect(() => {
+        if (myProperty) {
+            formik.setValues({
+                location: myProperty.location,
+                property_type: myProperty.property_type,
+                description: myProperty.description,
+                price: myProperty.price
+            });
+        }
+    }, [myProperty])
     return (
         <>
             <CustomNavbar />
