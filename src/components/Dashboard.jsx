@@ -179,81 +179,88 @@ function Dashboard() {
     return (
         <>
             <CustomNavbar />
+            <div className='max-w-[1100px] mx-auto mt-20'>
 
-            <div className='flex justify-end'>
-                <Button color="blue" outline pill onClick={() => setIsOpen(true)}><CiFilter />
-                </Button>
+                <div className='flex justify-end'>
+                    <Button color="blue" outline pill onClick={() => setIsOpen(true)}><CiFilter />
+                    </Button>
+                </div>
+
+                <div className='flex justify-center items-center gap-3'>
+                    {
+                        properties.map((item, index) => {
+                            // console.log(item)
+                            return <PropertyCard key={index} id={item._id} propertyType={item.property_type} location={item.location} price={item.price} description={item.description} />
+
+                        })
+                    }
+                </div>
+
+
+
+
+                <Drawer open={isOpen} onClose={handleClose}>
+                    <Drawer.Header title="Filter" titleIcon={() => <></>} />
+                    <Drawer.Items>
+
+
+                        <div>
+                            <form className="pb-3 " onSubmit={formik.handleSubmit}>
+
+                                <div>
+                                    <Label>Property Type</Label>
+                                    {/* <TextInput color={'blue'} size={'sm'} className='w-[280px]' value={''} /> */}
+                                    <Select
+                                        name='property_type'
+                                        id="property_type"
+                                        className='w-[280px]'
+                                        value={formik.values.property_type}
+                                        onChange={formik.handleChange}
+                                    >
+                                        <option value='' defaultValue disabled>Choose Location</option>
+                                        {
+                                            property_type?.map((type, idx) => <option key={idx}>{type}</option>)
+                                        }
+                                    </Select>
+                                </div>
+
+
+                                <div>
+                                    <Label>Location</Label>
+                                    {/* <TextInput color={'blue'} size={'sm'}  className='w-[280px]' value={''} /> */}
+                                    <Select
+                                        name='location'
+                                        id="location"
+                                        className='w-[280px]'
+                                        value={formik.values.location}
+                                        onChange={formik.handleChange}
+                                    >
+                                        <option value='' defaultValue disabled>Choose Location</option>
+                                        {
+                                            locations?.map((location, idx) => <option key={idx}>{location?.districtName}</option>)
+                                        }
+                                    </Select>
+                                </div>
+
+                                <div>
+                                    <Label>Price</Label>
+                                    <TextInput color={'blue'} size={'sm'} className='w-[280px]' name='price' value={formik.values.price} onChange={formik.handleChange} />
+                                </div>
+
+                                <div className='flex justify-between mt-5'>
+
+                                    <Button type='' color="gray" className='' onClick={() => { propertyData() }}  >Clear Filter</Button>
+                                    <Button type='submit' color="blue" className=''  >Apply Filter</Button>
+                                </div>
+
+                            </form>
+                        </div>
+
+                    </Drawer.Items>
+                </Drawer>
             </div>
-
-            {
-                properties.map((item, index) => {
-                    // console.log(item)
-                    return <PropertyCard key={index} id={item._id} propertyType={item.property_type} location={item.loaction} price={item.price} description={item.description} />
-
-                })
-            }
-
-
-            <Drawer open={isOpen} onClose={handleClose}>
-                <Drawer.Header title="Filter" titleIcon={() => <></>} />
-                <Drawer.Items>
-
-
-                    <div>
-                        <form className="pb-3 " onSubmit={formik.handleSubmit}>
-
-                            <div>
-                                <Label>Property Type</Label>
-                                {/* <TextInput color={'blue'} size={'sm'} className='w-[280px]' value={''} /> */}
-                                <Select
-                                    name='property_type'
-                                    id="property_type"
-                                    className='w-[280px]'
-                                    value={formik.values.property_type}
-                                    onChange={formik.handleChange}
-                                >
-                                    <option value='' defaultValue disabled>Choose Location</option>
-                                    {
-                                        property_type?.map((type, idx) => <option key={idx}>{type}</option>)
-                                    }
-                                </Select>
-                            </div>
-
-
-                            <div>
-                                <Label>Location</Label>
-                                {/* <TextInput color={'blue'} size={'sm'}  className='w-[280px]' value={''} /> */}
-                                <Select
-                                    name='location'
-                                    id="location"
-                                    className='w-[280px]'
-                                    value={formik.values.location}
-                                    onChange={formik.handleChange}
-                                >
-                                    <option value='' defaultValue disabled>Choose Location</option>
-                                    {
-                                        locations?.map((location, idx) => <option key={idx}>{location?.districtName}</option>)
-                                    }
-                                </Select>
-                            </div>
-
-                            <div>
-                                <Label>Price</Label>
-                                <TextInput color={'blue'} size={'sm'} className='w-[280px]' name='price' value={formik.values.price} onChange={formik.handleChange} />
-                            </div>
-
-                            <div className='flex justify-between mt-5'>
-
-                                <Button type='' color="gray" className='' onClick={() => { propertyData() }}  >Clear Filter</Button>
-                                <Button type='submit' color="blue" className=''  >Apply Filter</Button>
-                            </div>
-
-                        </form>
-                    </div>
-
-                </Drawer.Items>
-            </Drawer>
         </>
+
     )
 }
 
