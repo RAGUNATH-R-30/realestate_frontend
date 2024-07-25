@@ -14,6 +14,19 @@ const propertyServices = {
         try {
             const response = await instance.get('/property/myproperty');
             if(response) {
+                
+                return response.data;
+            }
+        }
+        catch(err) {
+            throw err;
+        }
+    },
+    getPropertybyid:async(id)=>{
+        try {
+            const response = await instance.get(`/property/mypropertyid/${id}`);
+            if(response) {
+                
                 return response.data;
             }
         }
@@ -21,6 +34,9 @@ const propertyServices = {
             throw err;
         }
     }
+    // myProperty:async()=>{
+    //     return await instance.get('/property/myproperty')
+    // }
 }
 
 export default propertyServices

@@ -1,11 +1,32 @@
 import { Label, Select, TextInput } from 'flowbite-react'
-import React from 'react'
+import React, { useEffect } from 'react'
+import { useParams } from 'react-router-dom'
+import propertyServices from '../../services/propertyServices';
 
 export default function PropertyForm({
     formik,
     property_type,
     locations
 }) {
+  const [myProperty, setMyProperty] = useState([]);
+
+    const { id } = useParams();
+    console.log(id)
+
+    const getPropertyData= async(id)=>{
+        try {
+            const response = await propertyServices.getPropertybyid(id);
+            if (response) {
+              setMyProperty(response.myproperty);
+            }
+          }
+          catch (err) {
+            alert(err.message);
+          }
+    }
+useEffect(()=>{
+getPropertyData(id)
+},[])
     return (
         <>
             <div>

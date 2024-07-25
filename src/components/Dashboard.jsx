@@ -17,6 +17,7 @@ import {
 
 import { CiFilter } from "react-icons/ci";
 import { useFormik } from 'formik'
+import PropertyCard from './reusable/PropertyCard'
 
 function Dashboard() {
     const [properties, setProperty] = useState([])
@@ -184,7 +185,11 @@ function Dashboard() {
             </div>
 
             {
+                properties.map((item, index) => {
+                    // console.log(item)
+                    return <PropertyCard key={index} id={item._id} propertyType={item.property_type} location={item.loaction} price={item.price} description={item.description} />
 
+                })
             }
 
 
@@ -238,7 +243,7 @@ function Dashboard() {
 
                             <div className='flex justify-between mt-5'>
 
-                                <Button type='' color="gray" className=''onClick={()=>{propertyData()}}  >Clear Filter</Button>
+                                <Button type='' color="gray" className='' onClick={() => { propertyData() }}  >Clear Filter</Button>
                                 <Button type='submit' color="blue" className=''  >Apply Filter</Button>
                             </div>
 
